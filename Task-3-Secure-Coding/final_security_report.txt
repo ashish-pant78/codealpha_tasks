@@ -1,0 +1,59 @@
+Run started:2026-08-14 16:50:33.356559+00:00
+
+Test results:
+>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: .\vulnerable_app.py:3:0
+2	import sqlite3
+3	import subprocess
+4	import os
+
+--------------------------------------------------
+>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html
+   Location: .\vulnerable_app.py:106:17
+105	        # Secure: no shell=True and arguments are passed separately
+106	        result = subprocess.check_output(
+107	            ["ping", "-n", "1", host],
+108	            text=True,
+109	            timeout=5
+110	        )
+111	
+
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: .\vulnerable_app.py:106:17
+105	        # Secure: no shell=True and arguments are passed separately
+106	        result = subprocess.check_output(
+107	            ["ping", "-n", "1", host],
+108	            text=True,
+109	            timeout=5
+110	        )
+111	
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 89
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 3
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 3
+Files skipped (0):
