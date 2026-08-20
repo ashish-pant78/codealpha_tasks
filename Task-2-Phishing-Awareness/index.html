@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SENTRYNET — Phishing Awareness Training</title>
+<meta name="description" content="Learn to recognize and stop phishing attacks. Interactive cybersecurity awareness training.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Background canvas: cyber grid + particles -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="scanline" aria-hidden="true"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <span class="logo-icon">🛡️</span>
+      <span class="logo-text">SENTRY<span class="accent">NET</span></span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="#home" class="nav-link active" data-section="home">Home</a>
+      <a href="#what-is-phishing" class="nav-link" data-section="what-is-phishing">What is Phishing?</a>
+      <a href="#phishing-emails" class="nav-link" data-section="phishing-emails">Phishing Emails</a>
+      <a href="#fake-websites" class="nav-link" data-section="fake-websites">Fake Websites</a>
+      <a href="#social-engineering" class="nav-link" data-section="social-engineering">Social Engineering</a>
+      <a href="#real-examples" class="nav-link" data-section="real-examples">Real Examples</a>
+      <a href="#safety-tips" class="nav-link" data-section="safety-tips">Safety Tips</a>
+      <a href="#quiz" class="nav-link" data-section="quiz">Quiz</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main-content">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-inner reveal">
+    <div class="hero-text">
+      <div class="eyebrow">
+        <span class="pulse-dot"></span> CYBERSECURITY AWARENESS TRAINING
+      </div>
+      <h1 class="hero-title">DON'T GET <span class="glitch-text">HOOKED</span> BY PHISHING</h1>
+      <p class="hero-subtitle">Learn how attackers manipulate people, steal information, and create convincing fake websites — and learn how to stop them.</p>
+      <div class="hero-buttons">
+        <a href="#what-is-phishing" class="btn btn-primary">Start Learning</a>
+        <a href="#quiz" class="btn btn-secondary">Take the Quiz</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-graphic" role="img" aria-label="Illustration of a cybersecurity shield blocking a fake phishing email">
+        <div class="shield-glow"></div>
+        <svg class="shield-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 5 L190 40 V105 C190 155 150 195 100 215 C50 195 10 155 10 105 V40 Z"
+                fill="rgba(6,214,160,0.06)" stroke="var(--neon-green)" stroke-width="2"/>
+          <path d="M75 108 L92 125 L128 88" fill="none" stroke="var(--cyan)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="check-path"/>
+        </svg>
+        <div class="fake-email-card">
+          <div class="fake-email-header">
+            <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+            <span class="fake-email-title">inbox.eml</span>
+          </div>
+          <div class="fake-email-body">
+            <p><strong>From:</strong> security@examp1e-bank.test</p>
+            <p><strong>Subject:</strong> URGENT: Verify Now!</p>
+            <div class="blocked-tag">⛔ BLOCKED</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="terminal-panel" aria-label="System status panel">
+        <div class="terminal-header">
+          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+          <span>system_status.sh</span>
+        </div>
+        <pre class="terminal-body" id="terminal-typed"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IS PHISHING ============ -->
+<section class="section" id="what-is-phishing">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 01</span>
+      <h2>What Is Phishing?</h2>
+      <p class="section-lead">Phishing is a cyber attack where criminals pretend to be a trusted person, company, bank, website, or organization to trick you into revealing sensitive information or performing an unsafe action.</p>
+    </div>
+
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <h3>Why attackers use phishing</h3>
+        <p>Phishing is cheap, fast, and doesn't require breaking through firewalls. It's easier to trick a person than to hack a system, so attackers target human trust instead of technical weaknesses.</p>
+      </div>
+      <div class="info-card">
+        <h3>What they try to steal</h3>
+        <p>Passwords, one-time passcodes (OTPs), bank details, credit card numbers, company credentials, personal identity information, or access to your accounts and devices.</p>
+      </div>
+      <div class="info-card">
+        <h3>How attacks normally work</h3>
+        <p>An attacker sends a message that looks legitimate, creates a reason for you to act quickly, and directs you to a fake website or attachment designed to capture your information.</p>
+      </div>
+      <div class="info-card">
+        <h3>Why it's dangerous</h3>
+        <p>A single click can lead to stolen money, identity theft, compromised company networks, ransomware infections, or accounts being taken over entirely.</p>
+      </div>
+    </div>
+
+    <div class="flow-wrap reveal">
+      <h3 class="flow-title">The Anatomy of a Phishing Attack</h3>
+      <div class="attack-flow" id="attack-flow">
+        <button class="flow-step" data-step="attacker">
+          <span class="flow-icon">🧑‍💻</span><span>ATTACKER</span>
+        </button>
+        <span class="flow-arrow">↓</span>
+        <button class="flow-step" data-step="message">
+          <span class="flow-icon">✉️</span><span>Fake Message</span>
+        </button>
+        <span class="flow-arrow">↓</span>
+        <button class="flow-step" data-step="click">
+          <span class="flow-icon">👆</span><span>Victim Clicks</span>
+        </button>
+        <span class="flow-arrow">↓</span>
+        <button class="flow-step" data-step="site">
+          <span class="flow-icon">🌐</span><span>Fake Website</span>
+        </button>
+        <span class="flow-arrow">↓</span>
+        <button class="flow-step" data-step="entered">
+          <span class="flow-icon">⌨️</span><span>Info Entered</span>
+        </button>
+        <span class="flow-arrow">↓</span>
+        <button class="flow-step" data-step="access">
+          <span class="flow-icon">🔓</span><span>Attacker Gets Access</span>
+        </button>
+      </div>
+      <div class="flow-explanation" id="flow-explanation">
+        <p>Click any step above to see what happens in detail.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPES OF PHISHING ============ -->
+<section class="section section-alt" id="types-of-phishing">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 02</span>
+      <h2>Types of Phishing</h2>
+      <p class="section-lead">Phishing takes many forms. Attackers adapt their method to whatever channel you trust most.</p>
+    </div>
+
+    <div class="type-grid reveal" id="type-grid"></div>
+  </div>
+</section>
+
+<!-- ============ PHISHING EMAILS ============ -->
+<section class="section" id="phishing-emails">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 03</span>
+      <h2>How Phishing Emails Work</h2>
+      <p class="section-lead">This is a fictional example. Click the highlighted parts to learn what makes them suspicious.</p>
+    </div>
+
+    <div class="email-demo reveal">
+      <div class="fake-email-window">
+        <div class="fake-email-header">
+          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+          <span class="fake-email-title">New Message</span>
+        </div>
+        <div class="email-field">
+          <span class="email-label">From:</span>
+          <button class="email-hotspot" data-part="sender">"Account Security" &lt;security@example-secure-alert.test&gt;</button>
+        </div>
+        <div class="email-field">
+          <span class="email-label">Subject:</span>
+          <button class="email-hotspot" data-part="urgent">URGENT: Your account will be suspended!</button>
+        </div>
+        <div class="email-body-text">
+          <p>Dear Customer,</p>
+          <p>Your account requires immediate verification or it will be permanently suspended within 24 hours.</p>
+          <p><button class="email-hotspot" data-part="link">Click here to verify your account →</button></p>
+          <p>Please see the <button class="email-hotspot" data-part="attachment">attached document</button> for your account statement.</p>
+          <p>We also need you to confirm your <button class="email-hotspot" data-part="sensitive">password and OTP</button> to restore full access.</p>
+          <p class="email-sign">Thnak you for your cooperation,<br>Security Team</p>
+        </div>
+        <button class="email-hotspot email-hotspot-block" data-part="grammar">⚠ Notice the spelling issue above</button>
+      </div>
+
+      <div class="email-explanation-panel" id="email-explanation">
+        <h3>Click a highlighted part of the email</h3>
+        <p>Each highlighted element hides a lesson about a common phishing warning sign.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAKE WEBSITES ============ -->
+<section class="section section-alt" id="fake-websites">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 04</span>
+      <h2>Fake Website Detection</h2>
+      <p class="section-lead">Attackers build websites that look identical to the real thing. Learning to read a URL is one of the most powerful defenses you have.</p>
+    </div>
+
+    <div class="url-compare reveal">
+      <div class="url-card url-card-real">
+        <span class="url-tag url-tag-good">LEGITIMATE (EXAMPLE)</span>
+        <code>https://secure.example.test/login</code>
+      </div>
+      <div class="url-card url-card-fake">
+        <span class="url-tag url-tag-bad">FICTIONAL PHISHING EXAMPLE</span>
+        <code>https://example-security-login.test</code>
+      </div>
+    </div>
+
+    <div class="callout callout-warning reveal">
+      <strong>⚠ Important:</strong> HTTPS encrypts the connection between you and a website — it does <em>not</em> prove the website is legitimate. A phishing website can use HTTPS too. The padlock icon means "this connection is private," not "this site is trustworthy."
+    </div>
+
+    <div class="url-analyzer reveal">
+      <h3 class="flow-title">Interactive URL Analyzer</h3>
+      <p class="analyzer-help">Click each highlighted part of the URL below to learn what it means.</p>
+      <div class="analyzer-url" id="analyzer-url">
+        <span class="url-part" data-part="protocol">https://</span><span class="url-part" data-part="subdomain">accounts-secure.</span><span class="url-part" data-part="domain">example-verify-login</span><span class="url-part" data-part="tld">.test</span><span class="url-part" data-part="path">/signin/update</span>
+      </div>
+      <div class="analyzer-explanation" id="analyzer-explanation">
+        <p>Click a part of the URL above to see what it tells you.</p>
+      </div>
+    </div>
+
+    <div class="info-grid reveal">
+      <div class="info-card">
+        <h3>Typosquatting</h3>
+        <p>Attackers register domains that are one letter off from the real one, like using the number "1" instead of the letter "l" — "examp1e.test" instead of "example.test".</p>
+      </div>
+      <div class="info-card">
+        <h3>Lookalike domains</h3>
+        <p>Extra words are added to make a domain look official, such as "example-security-login.test" instead of the real "example.test".</p>
+      </div>
+      <div class="info-card">
+        <h3>URL shortening</h3>
+        <p>Shortened links hide the real destination. Always be cautious of shortened links in unexpected messages, especially ones asking for personal information.</p>
+      </div>
+      <div class="info-card">
+        <h3>Redirects</h3>
+        <p>A link may open a legitimate-looking page first, then silently redirect you to a fake login page designed to steal your credentials.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOCIAL ENGINEERING ============ -->
+<section class="section" id="social-engineering">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 05</span>
+      <h2>Social Engineering</h2>
+      <p class="section-lead">Social engineering means manipulating people into doing something that benefits the attacker — no hacking skills required, just psychology.</p>
+    </div>
+
+    <div class="tactic-grid reveal" id="tactic-grid"></div>
+  </div>
+</section>
+
+<!-- ============ REAL-WORLD SCENARIOS ============ -->
+<section class="section section-alt" id="real-examples">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 06</span>
+      <h2>Real-World Scenarios</h2>
+      <p class="section-lead">These fictional scenarios simulate situations you might encounter. Choose the safest response.</p>
+    </div>
+
+    <div class="scenario-list reveal" id="scenario-list"></div>
+  </div>
+</section>
+
+<!-- ============ RED FLAGS CHECKLIST ============ -->
+<section class="section" id="red-flags">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 07</span>
+      <h2>10 Red Flags You Should Never Ignore</h2>
+      <p class="section-lead">Click each red flag to see a detailed explanation.</p>
+    </div>
+
+    <div class="redflag-grid reveal" id="redflag-grid"></div>
+  </div>
+</section>
+
+<!-- ============ SAFETY TIPS ============ -->
+<section class="section section-alt" id="safety-tips">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">MODULE 08</span>
+      <h2>How To Stay Safe</h2>
+      <p class="section-lead">A practical checklist you can apply every time you receive a message that asks for action.</p>
+    </div>
+
+    <div class="safety-grid reveal" id="safety-grid"></div>
+  </div>
+</section>
+
+<!-- ============ DETECTION CHALLENGE ============ -->
+<section class="section" id="detection-challenge">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">PRACTICE</span>
+      <h2>Phishing Detection Challenge</h2>
+      <p class="section-lead">Find all 5 red flags hidden in this fictional email. Click each suspicious part you find.</p>
+    </div>
+
+    <div class="challenge-wrap reveal">
+      <div class="fake-email-window" id="challenge-email">
+        <div class="fake-email-header">
+          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+          <span class="fake-email-title">Inbox — 1 new message</span>
+        </div>
+        <div class="email-field">
+          <span class="email-label">From:</span>
+          <button class="challenge-target" data-target="sender" data-explain="This sender address uses a lookalike domain, not the real company domain — always check the actual address, not just the display name.">"PayFast Support" &lt;support@payfast-alerts.test&gt;</button>
+        </div>
+        <div class="email-field">
+          <span class="email-label">Subject:</span>
+          <button class="challenge-target" data-target="urgency" data-explain="Extreme urgency ('within 1 hour') is designed to make you panic and skip careful thinking.">Action Required: Account Access Ends in 1 Hour</button>
+        </div>
+        <div class="email-body-text">
+          <p>We noticed unusual activity on your account.</p>
+          <p><button class="challenge-target" data-target="link" data-explain="This link text doesn't show the real destination. Hover over links to preview the actual URL before clicking.">Confirm your identity here →</button></p>
+          <p>Please open the <button class="challenge-target" data-target="attachment" data-explain="Unexpected attachments can contain malware. Never open attachments you weren't expecting, even if the message looks official.">attached invoice.zip</button> for details.</p>
+          <p>To restore access, reply with your <button class="challenge-target" data-target="credentials" data-explain="Legitimate organizations never ask you to send your password or OTP by email or message.">account password and OTP code</button>.</p>
+        </div>
+      </div>
+
+      <div class="challenge-panel">
+        <h3>Threat Detection Score</h3>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" id="challenge-bar" style="width:0%"></div>
+        </div>
+        <div class="score-readout">
+          <span id="challenge-percent">0%</span>
+          <span id="challenge-fraction">0 / 5 RED FLAGS FOUND</span>
+        </div>
+        <div class="challenge-feedback" id="challenge-feedback">
+          <p>Click on parts of the email you think are suspicious.</p>
+        </div>
+        <button class="btn btn-secondary btn-small" id="challenge-reset">Reset Challenge</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="section section-alt" id="quiz">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="eyebrow">FINAL ASSESSMENT</span>
+      <h2>Interactive Phishing Quiz</h2>
+      <p class="section-lead">Test what you've learned. 10 questions, instant feedback, full explanations.</p>
+    </div>
+
+    <div class="quiz-wrap reveal">
+      <div class="quiz-topbar">
+        <div class="quiz-progress-track">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <div class="quiz-meta">
+          <span id="quiz-counter">Question 1 of 10</span>
+          <span id="quiz-score">Score: 0</span>
+        </div>
+      </div>
+
+      <div class="quiz-card" id="quiz-card">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="quiz-results" id="quiz-results" hidden>
+        <div class="results-ring">
+          <svg viewBox="0 0 120 120" class="ring-svg">
+            <circle cx="60" cy="60" r="52" class="ring-track"/>
+            <circle cx="60" cy="60" r="52" class="ring-fill" id="ring-fill"/>
+          </svg>
+          <div class="ring-text">
+            <span id="results-percent">0%</span>
+          </div>
+        </div>
+        <h3 id="results-title">EXCELLENT</h3>
+        <p id="results-message">You have strong phishing awareness.</p>
+        <button class="btn btn-primary" id="quiz-restart">Restart Quiz</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL KNOWLEDGE CHECK ============ -->
+<section class="section" id="final-check">
+  <div class="section-inner">
+    <div class="final-card reveal">
+      <span class="eyebrow">TRAINING COMPLETE</span>
+      <h2>You Are Now Phishing Aware</h2>
+      <ul class="final-list">
+        <li>✓ You know how phishing works</li>
+        <li>✓ You can identify suspicious emails</li>
+        <li>✓ You can inspect URLs</li>
+        <li>✓ You understand social engineering</li>
+        <li>✓ You know how to respond safely</li>
+      </ul>
+      <div class="hero-buttons">
+        <a href="#what-is-phishing" class="btn btn-primary">Retake Training</a>
+        <a href="#quiz" class="btn btn-secondary" id="retake-quiz-link">Take Quiz Again</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>SENTRYNET — Educational cybersecurity awareness training. All examples on this site are fictional and use dummy data. This site never collects passwords, OTPs, or personal information.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
